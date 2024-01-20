@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import css from './Modal.module.css';
 
-export const Modal = ({ showModal, image, onClose }) => {
+export const Modal = ({ image, onClose }) => {
   useEffect(() => {
     const handleKeyDown = (e) => {
       if (e.code === 'Escape') {
@@ -16,8 +16,14 @@ export const Modal = ({ showModal, image, onClose }) => {
     };
   }, [onClose]);
 
+  const handleOverlayClick = (e) => {
+    if (e.target === e.currentTarget) {
+      onClose();
+    }
+  };
+
   return (
-      <div className={css.overlay} onClick={onClose}>
+      <div className={css.overlay} onClick={handleOverlayClick}>
         <div className={css.module}>
           <img src={image} alt="" />
         </div>
